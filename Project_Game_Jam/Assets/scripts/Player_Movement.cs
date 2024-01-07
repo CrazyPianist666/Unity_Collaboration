@@ -7,6 +7,10 @@ public class Player_Movement : MonoBehaviour
     public float forward_force = 1000f;
     void Update()
     {
-        rb.AddForce(0, 0, forward_force * Time.deltaTime);
+        if (Input.GetKey(KeyCode.W))
+        {
+            rb.AddForce(0, 0, forward_force * Time.deltaTime);
+        }
+       
     }
 }

@@ -14,6 +14,10 @@ public class PlayerMovement : MonoBehaviour
     float smoothVelocity;
     [SerializeField]
     Transform cam;
+    [SerializeField]
+    float Gravity = -7.5f;
+    [SerializeField]
+    Vector3 velocity;
 
     // Start is called before the first frame update
     void Start()
@@ -37,5 +41,12 @@ public class PlayerMovement : MonoBehaviour
             Vector3 moveDir = Quaternion.Euler(0f,targetAngel, 0f) * Vector3.forward;
             characterController.Move(moveDir.normalized * Speed * Time.deltaTime);
         }
+
+        if (!characterController.isGrounded)
+        {
+            velocity.y += Gravity * Time.deltaTime;
+            characterController.Move(velocity);
+        }
     }
+    
 }

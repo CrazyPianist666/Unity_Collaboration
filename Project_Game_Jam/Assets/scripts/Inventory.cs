@@ -35,37 +35,48 @@ public class Inventory : MonoBehaviour
             toggleInventory(!inventory.activeInHierarchy);
     }
 
-    private void itemRaycast(bool hasClicked = false)
+ private void ItemRaycast(bool hasClicked = false)
+{
+    itemHoverText.text = "";
+
+    if (mainCamera == null || playerTransform == null)
     {
-        itemHoverText.text = "";
+        Debug.LogError("Main camera or player transform not assigned in the Inspector!");
+        return;
+    }
 
-        Ray ray = Camera.main.ScreenPointToRay(crosshair.transform.position);
-        RaycastHit hit;
+    Ray ray = mainCamera.ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f, 0f));
+    RaycastHit hit;
 
-        if (Physics.Raycast(ray, out hit, raycastDistance, itemLayer))
+    Debug.DrawRay(ray.origin, ray.direction * raycastDistance, Color.red, 0.1f); // Draw the ray for debugging
+
+    if (Physics.Raycast(ray, out hit, raycastDistance, itemLayer))
+    {
+        if (hit.collider != null)
         {
-            if (hit.collider != null)
+            if (hasClicked) // Pick up
             {
-                if (hasClicked) // Pick up
+                Item newItem = hit.collider.GetComponent<Item>();
+                if (newItem)
                 {
-                    Item newItem = hit.collider.GetComponent<Item>();
-                    if (newItem)
-                    {
-                        addItemToInventory(newItem);
-                    }
+                    AddItemToInventory(newItem);
                 }
-                else // Get the name
+            }
+            else // Get the name
+            {
+                Item newItem = hit.collider.GetComponent<Item>();
+                if (newItem)
                 {
-                    Item newItem = hit.collider.GetComponent<Item>();
-
-                    if (newItem)
-                    {
-                        itemHoverText.text = newItem.name;
-                    }
+                    itemHoverText.text = newItem.name;
                 }
             }
         }
     }
+    else
+    {
+        Debug.Log("Raycast did not hit anything.");
+    }
+}
 
     private void addItemToInventory(Item itemToAdd)
     {

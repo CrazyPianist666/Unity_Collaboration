@@ -35,15 +35,13 @@ public class Inventory : MonoBehaviour
             toggleInventory(!inventory.activeInHierarchy);
     }
 
-<<<<<<< HEAD
     private void itemRaycast(bool hasClicked = false)
     {
         itemHoverText.text = "";
-
         Ray ray = Camera.main.ScreenPointToRay(crosshair.transform.position);
         RaycastHit hit;
 
-        if (Physics.Raycast(ray, out hit, raycastDistance, itemLayer))
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, itemLayer))
         {
             if (hit.collider != null)
             {
@@ -63,53 +61,11 @@ public class Inventory : MonoBehaviour
                     {
                         itemHoverText.text = newItem.name;
                     }
-=======
- private void ItemRaycast(bool hasClicked = false)
-{
-    itemHoverText.text = "";
-
-    if (mainCamera == null || playerTransform == null)
-    {
-        Debug.LogError("Main camera or player transform not assigned in the Inspector!");
-        return;
-    }
-
-    Ray ray = mainCamera.ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f, 0f));
-    RaycastHit hit;
-
-    Debug.DrawRay(ray.origin, ray.direction * raycastDistance, Color.red, 0.1f); // Draw the ray for debugging
-
-    if (Physics.Raycast(ray, out hit, raycastDistance, itemLayer))
-    {
-        if (hit.collider != null)
-        {
-            if (hasClicked) // Pick up
-            {
-                Item newItem = hit.collider.GetComponent<Item>();
-                if (newItem)
-                {
-                    AddItemToInventory(newItem);
                 }
             }
-            else // Get the name
-            {
-                Item newItem = hit.collider.GetComponent<Item>();
-                if (newItem)
-                {
-                    itemHoverText.text = newItem.name;
->>>>>>> 1b6b365bbe2e92ce6b01e72a0cf78a020d476d1e
-                }
-            }
+            Debug.DrawRay(transform.position, Vector3.forward, Color.green);
         }
     }
-<<<<<<< HEAD
-=======
-    else
-    {
-        Debug.Log("Raycast did not hit anything.");
-    }
-}
->>>>>>> 1b6b365bbe2e92ce6b01e72a0cf78a020d476d1e
 
     private void addItemToInventory(Item itemToAdd)
     {
@@ -165,6 +121,6 @@ public class Inventory : MonoBehaviour
         Cursor.visible = enable;
 
         // Disable the rotation of the camera.
-      
+
     }
 }

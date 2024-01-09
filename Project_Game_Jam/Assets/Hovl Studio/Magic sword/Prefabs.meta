@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Project_Game_Jam/Assets/Hovl Studio/Magic sword/Prefabs.meta
 guid: 3393d23caf6a11f4a9b9552dc23cfa49
+========
+guid: a26a37a0e6ba89c4683aaa4ffa498cb2
+>>>>>>>> 1b6b365bbe2e92ce6b01e72a0cf78a020d476d1e:Project_Game_Jam/Assets/UI.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

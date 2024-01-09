@@ -20129,7 +20129,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 760826136}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.20122041, y: -0.092080235, z: 0.019003056, w: 0.9750233}
+  m_LocalRotation: {x: 0.20122042, y: -0.092080265, z: 0.019003063, w: 0.9750233}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -21453,7 +21453,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 816246573}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.18723698, y: 0.018315326, z: -0.0034916752, w: 0.98213786}
+  m_LocalRotation: {x: 0.18718188, y: 0.030056745, z: -0.0057300874, w: 0.98184866}
   m_LocalPosition: {x: 325.36914, y: 22.112799, z: 226.55681}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -22304,7 +22304,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 856036101}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.18723698, y: 0.018315336, z: -0.0034916773, w: 0.98213786}
+  m_LocalRotation: {x: 0.18718188, y: 0.030056762, z: -0.0057300893, w: 0.98184866}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -39631,7 +39631,7 @@ MonoBehaviour:
   onScreenSprite: {fileID: 21300000, guid: f682d924929cb584d8c97b5802d72610, type: 3}
   showBoundaryBox: 0
   boundaryBoxColor: {r: 1, g: 1, b: 0.4, a: 1}
-  parentSize: {x: 150, y: 150}
+  parentSize: {x: 50, y: 50}
   displayRange: 200
   enableSprite: 1
   spriteDepth: 0
@@ -47312,7 +47312,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1871790089}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.16566995, y: -0.09270976, z: 0.015645705, w: 0.98168916}
+  m_LocalRotation: {x: 0.16566995, y: -0.092709795, z: 0.015645714, w: 0.98168916}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

@@ -6,16 +6,21 @@ using TMPro;
 using static UnityEditor.Progress;
 
 public class Inventory : MonoBehaviour
-{
+{ 
     [Header("UI")]
     public GameObject inventory;
     public List<Slot> InventorySlots = new List<Slot>();
-    public Image crosshair;
+    public Image Crosshair;
     public TMP_Text itemHoverText;
 
     [Header("Raycast")]
     public float raycastDistance = 5f;
     public LayerMask itemLayer;
+
+    [Header("Drag and Drop")]
+    public Image dragIconImage;
+    private Item currentDraggedItem;
+    private int currentDragslotIndex = -1;
 
     public void Start()
     {
@@ -33,12 +38,24 @@ public class Inventory : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.E))
             toggleInventory(!inventory.activeInHierarchy);
+
+        if(inventory.activeInHierarchy && Input.GetMouseButtonDown(0))
+        {
+            dragInventoryIcon();
+        }
+        else if(currentDragslotIndex != -1 && Input.GetMouseButtonUp(0) || currentDragslotIndex != -1 && !inventory.activeInHierarchy) 
+        {
+            dropInventoryIcon();
+
+        }
+
+        dragIconImage.transform.position = Input.mousePosition;
     }
 
     private void itemRaycast(bool hasClicked = false)
     {
         itemHoverText.text = "";
-        Ray ray = Camera.main.ScreenPointToRay(crosshair.transform.position);
+        Ray ray = Camera.main.ScreenPointToRay(Crosshair.transform.position);
         RaycastHit hit;
 
         if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, itemLayer))
@@ -121,6 +138,74 @@ public class Inventory : MonoBehaviour
         Cursor.visible = enable;
 
         // Disable the rotation of the camera.
+
+    }
+
+    private void dragInventoryIcon()
+    {
+        for (int i = 0; i < InventorySlots.Count; i++)
+        {
+          Slot curSlot = InventorySlots[i];
+            if(curSlot.hovered && curSlot.hasItem())
+            {
+                currentDragslotIndex = i;
+
+                currentDraggedItem = curSlot.getItem();
+                dragIconImage.sprite = currentDraggedItem.icon;
+                dragIconImage.color = new Color(1, 1 , 1, 1);
+
+                curSlot.setItem(null);
+            }
+        }
+
+    }
+
+    private void dropInventoryIcon()
+    {
+
+        dragIconImage.sprite = null;
+        dragIconImage.color = new Color(1 , 1, 1, 0);
+        for (int i = 0; i < InventorySlots.Count; i++)
+        {
+
+            Slot curSlot = InventorySlots[i];
+            if(curSlot.hovered) 
+            {
+                if(curSlot.hasItem()) 
+                {
+
+                    Item itemToSwap = curSlot.getItem();
+
+                    curSlot.setItem(currentDraggedItem);
+                    InventorySlots[currentDragslotIndex].setItem(itemToSwap);
+
+                    resetDragVariables();
+                    return;
+                
+                }
+                else
+                {
+                    curSlot.setItem(currentDraggedItem);
+                    resetDragVariables();
+                    return;
+                }
+            
+            
+            
+            }
+        }
+
+        InventorySlots[currentDragslotIndex].setItem(currentDraggedItem);
+        resetDragVariables();
+        
+    }
+
+
+
+    private void resetDragVariables()
+    {
+        currentDraggedItem = null;
+        currentDragslotIndex = -1;
 
     }
 }

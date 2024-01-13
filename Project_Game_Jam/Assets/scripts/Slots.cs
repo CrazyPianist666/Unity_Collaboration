@@ -2,7 +2,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
-using static UnityEditor.Progress;
 
 public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
@@ -13,7 +12,6 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     private Color transparent = new Color(1, 1, 1, 0);
 
     private Image thisSlotImage;
-
     public TMP_Text thisSlotQuantityText;
 
     public void initialiseSlot()
@@ -48,10 +46,9 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         return heldItem;
     }
 
-    public bool hasItem() 
+    public bool hasItem()
     {
         return heldItem ? true : false;
-    
     }
 
     public void updateData()

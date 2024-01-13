@@ -3,30 +3,39 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using static UnityEditor.Progress;
 
 public class Inventory : MonoBehaviour
-{ 
+{
     [Header("UI")]
     public GameObject inventory;
-    public List<Slot> InventorySlots = new List<Slot>();
-    public Image Crosshair;
+    private List<Slot> allInventorySlots = new List<Slot>();
+    public List<Slot> inventorySlots = new List<Slot>();
+    public List<Slot> hotbarSlots = new List<Slot>();
+    public Image CrossHair;
     public TMP_Text itemHoverText;
 
     [Header("Raycast")]
     public float raycastDistance = 5f;
     public LayerMask itemLayer;
+    public Transform dropLocation; // The location items will be dropped from.
 
     [Header("Drag and Drop")]
     public Image dragIconImage;
     private Item currentDraggedItem;
-    private int currentDragslotIndex = -1;
+    private int currentDragSlotIndex = -1;
+
+    [Header("Equippable Items")]
+    public List<GameObject> equippableItems = new List<GameObject>();
+    public Transform selectedItemImage;
 
     public void Start()
     {
         toggleInventory(false);
 
-        foreach (Slot uiSlot in InventorySlots)
+        allInventorySlots.AddRange(hotbarSlots);
+        allInventorySlots.AddRange(inventorySlots);
+
+        foreach (Slot uiSlot in allInventorySlots)
         {
             uiSlot.initialiseSlot();
         }
@@ -39,14 +48,24 @@ public class Inventory : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E))
             toggleInventory(!inventory.activeInHierarchy);
 
-        if(inventory.activeInHierarchy && Input.GetMouseButtonDown(0))
+        if (inventory.activeInHierarchy && Input.GetMouseButtonDown(0))
         {
             dragInventoryIcon();
         }
-        else if(currentDragslotIndex != -1 && Input.GetMouseButtonUp(0) || currentDragslotIndex != -1 && !inventory.activeInHierarchy) 
+        else if (currentDragSlotIndex != -1 && Input.GetMouseButtonUp(0) || currentDragSlotIndex != -1 && !inventory.activeInHierarchy) // If we are hovered over a slot and release, if we are dragging an item and close the inventory
         {
             dropInventoryIcon();
+        }
 
+        if (Input.GetKeyDown(KeyCode.Q)) // The button we need to press to drop items from the inventory
+            dropItem();
+
+        for (int i = 1; i < hotbarSlots.Count + 1; i++)
+        {
+            if (Input.GetKeyDown(i.ToString()))
+            {
+                enableHotbarItem(i - 1);
+            }
         }
 
         dragIconImage.transform.position = Input.mousePosition;
@@ -55,10 +74,10 @@ public class Inventory : MonoBehaviour
     private void itemRaycast(bool hasClicked = false)
     {
         itemHoverText.text = "";
-        Ray ray = Camera.main.ScreenPointToRay(Crosshair.transform.position);
+        Ray ray = Camera.main.ScreenPointToRay(CrossHair.transform.position);
         RaycastHit hit;
 
-        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, itemLayer))
+        if (Physics.Raycast(ray, out hit, raycastDistance, itemLayer))
         {
             if (hit.collider != null)
             {
@@ -80,7 +99,6 @@ public class Inventory : MonoBehaviour
                     }
                 }
             }
-            Debug.DrawRay(transform.position, Vector3.forward, Color.green);
         }
     }
 
@@ -88,9 +106,9 @@ public class Inventory : MonoBehaviour
     {
         int leftoverQuantity = itemToAdd.currentQuantity;
         Slot openSlot = null;
-        for (int i = 0; i < InventorySlots.Count; i++)
+        for (int i = 0; i < allInventorySlots.Count; i++)
         {
-            Item heldItem = InventorySlots[i].getItem();
+            Item heldItem = allInventorySlots[i].getItem();
 
             if (heldItem != null && itemToAdd.name == heldItem.name)
             {
@@ -100,7 +118,7 @@ public class Inventory : MonoBehaviour
                 {
                     heldItem.currentQuantity += leftoverQuantity;
                     Destroy(itemToAdd.gameObject);
-                    InventorySlots[i].updateData();
+                    allInventorySlots[i].updateData();
                     return;
                 }
                 else // Add as much as we can to the current slot
@@ -112,10 +130,10 @@ public class Inventory : MonoBehaviour
             else if (heldItem == null)
             {
                 if (!openSlot)
-                    openSlot = InventorySlots[i];
+                    openSlot = allInventorySlots[i];
             }
 
-            InventorySlots[i].updateData();
+            allInventorySlots[i].updateData();
         }
 
         if (leftoverQuantity > 0 && openSlot)
@@ -138,74 +156,100 @@ public class Inventory : MonoBehaviour
         Cursor.visible = enable;
 
         // Disable the rotation of the camera.
+       
+    }
 
+    private void dropItem()
+    {
+        for (int i = 0; i < allInventorySlots.Count; i++)
+        {
+            Slot curSlot = allInventorySlots[i];
+            if (curSlot.hovered && curSlot.hasItem())
+            {
+                curSlot.getItem().gameObject.SetActive(true);
+                curSlot.getItem().transform.position = dropLocation.position;
+                curSlot.setItem(null);
+                break;
+            }
+        }
     }
 
     private void dragInventoryIcon()
     {
-        for (int i = 0; i < InventorySlots.Count; i++)
+        for (int i = 0; i < allInventorySlots.Count; i++)
         {
-          Slot curSlot = InventorySlots[i];
-            if(curSlot.hovered && curSlot.hasItem())
+            Slot curSlot = allInventorySlots[i];
+            if (curSlot.hovered && curSlot.hasItem())
             {
-                currentDragslotIndex = i;
+                currentDragSlotIndex = i; // Update the current drag slot index variable.
 
-                currentDraggedItem = curSlot.getItem();
+                currentDraggedItem = curSlot.getItem(); // Get the item from the current slot
                 dragIconImage.sprite = currentDraggedItem.icon;
-                dragIconImage.color = new Color(1, 1 , 1, 1);
+                dragIconImage.color = new Color(1, 1, 1, 1); // Make the follow mouse icon opaque (visible).
 
-                curSlot.setItem(null);
+                curSlot.setItem(null); // Remove the item from the slot we just picked up the item from.
             }
         }
-
     }
 
     private void dropInventoryIcon()
     {
-
+        // Reset our drag item variables
         dragIconImage.sprite = null;
-        dragIconImage.color = new Color(1 , 1, 1, 0);
-        for (int i = 0; i < InventorySlots.Count; i++)
+        dragIconImage.color = new Color(1, 1, 1, 0); // Make invisible.
+
+        for (int i = 0; i < allInventorySlots.Count; i++)
         {
-
-            Slot curSlot = InventorySlots[i];
-            if(curSlot.hovered) 
+            Slot curSlot = allInventorySlots[i];
+            if (curSlot.hovered)
             {
-                if(curSlot.hasItem()) 
+                if (curSlot.hasItem()) // Swap the items.
                 {
-
                     Item itemToSwap = curSlot.getItem();
 
                     curSlot.setItem(currentDraggedItem);
-                    InventorySlots[currentDragslotIndex].setItem(itemToSwap);
+
+                    allInventorySlots[currentDragSlotIndex].setItem(itemToSwap);
 
                     resetDragVariables();
                     return;
-                
                 }
-                else
+                else // Place the item with no swap.
                 {
                     curSlot.setItem(currentDraggedItem);
                     resetDragVariables();
                     return;
                 }
-            
-            
-            
             }
         }
 
-        InventorySlots[currentDragslotIndex].setItem(currentDraggedItem);
+        // If we get to this point we dropped the item in an invalid location (or closed the inventory).
+        allInventorySlots[currentDragSlotIndex].setItem(currentDraggedItem);
         resetDragVariables();
-        
     }
-
-
 
     private void resetDragVariables()
     {
         currentDraggedItem = null;
-        currentDragslotIndex = -1;
+        currentDragSlotIndex = -1;
+    }
 
+    private void enableHotbarItem(int hotbarIndex)
+    {
+        foreach (GameObject a in equippableItems)
+        {
+            a.SetActive(false);
+        }
+
+        Slot hotbarSlot = hotbarSlots[hotbarIndex];
+        selectedItemImage.transform.position = hotbarSlots[hotbarIndex].transform.position;
+
+        if (hotbarSlot.hasItem())
+        {
+            if (hotbarSlot.getItem().equippableItemIndex != -1)
+            {
+                equippableItems[hotbarSlot.getItem().equippableItemIndex].SetActive(true);
+            }
+        }
     }
 }

@@ -20962,8 +20962,6 @@ GameObject:
   - component: {fileID: 704403571}
   - component: {fileID: 704403570}
   - component: {fileID: 704403569}
-  - component: {fileID: 704403574}
-  - component: {fileID: 704403573}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -21060,32 +21058,6 @@ Transform:
   - {fileID: 1727763253}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &704403573
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 704403568}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc7b634926d438244b2ac2e01ca4ca61, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Enemy: {fileID: 704403568}
---- !u!114 &704403574
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 704403568}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 686434daa96020e49bf8a3d238d25f3f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Player: {fileID: 1948165336}
 --- !u!1001 &706501953
 PrefabInstance:
   m_ObjectHideFlags: 0

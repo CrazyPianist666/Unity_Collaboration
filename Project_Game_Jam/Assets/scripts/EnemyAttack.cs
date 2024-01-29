@@ -1,12 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
-public class EnemyFollow : MonoBehaviour
+public class EnemyAttack : MonoBehaviour
 {
-    public NavMeshAgent enemy;
-    public Transform player;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,7 +13,9 @@ public class EnemyFollow : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.LookAt(player.transform);
-        enemy.SetDestination(player.position);
+        if (PlayerDetection.PlayerOnRange)
+        {
+            print("On Range");
+        }
     }
 }

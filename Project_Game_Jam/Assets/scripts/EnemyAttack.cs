@@ -15,7 +15,7 @@ public class EnemyAttack : MonoBehaviour
     {
         if (PlayerDetection.PlayerOnRange)
         {
-            print("On Range");
+            
         }
     }
 }

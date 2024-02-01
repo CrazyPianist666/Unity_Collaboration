@@ -11,6 +11,7 @@ using UnityEngine.EventSystems;
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Animations")]
+    
     public Animator animator;
     public int xAnimId;
     public int zAnimId;
@@ -21,6 +22,7 @@ public class PlayerMovement : MonoBehaviour
     public int JumpAnim;
     public int PunchAnim;
     public int HookPuchAnim;
+    public int DodgeAnim;
     [Header("PlayerMovement")]
     [SerializeField]
     float Speed;
@@ -47,6 +49,7 @@ public class PlayerMovement : MonoBehaviour
         JumpAnim = Animator.StringToHash("Jump");
         PunchAnim = Animator.StringToHash("Punching");
         HookPuchAnim = Animator.StringToHash("Hook Punch");
+        DodgeAnim = Animator.StringToHash("Standing Dodge Backward");
 
     }
 
@@ -99,5 +102,6 @@ public class PlayerMovement : MonoBehaviour
             animator.CrossFade(PunchAnim, animTrans);
         }
 
+        
     }
 }

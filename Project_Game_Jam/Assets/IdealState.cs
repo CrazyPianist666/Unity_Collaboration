@@ -4,21 +4,37 @@ using UnityEngine;
 
 public class IdealState : StateMachineBehaviour
 {
+  
     float timer;
+    Transform Player;
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+       
         timer = 0;
+        Player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         timer += Time.deltaTime;
-        if (timer > 5) {
-            animator.SetBool("isPatrolling", true);
         
+        if (timer > 2) {
+
+           animator.SetBool("isPatrol",true);
+            
         }
+        if (PlayerDetection.playerfound == true)
+        {
+            animator.SetBool("isRunning", true);
+        }
+        if (PlayerDetection.playerfound == true)
+        {
+            animator.SetBool("isPatrol",false);
+        }
+
+
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state

@@ -5,12 +5,17 @@ using UnityEngine.AI;
 
 public class PatrolState : StateMachineBehaviour
 {
+    
     float timer;
     List<Transform> WayPoints = new List<Transform>();
     NavMeshAgent agent;
+    Animator animator;
+
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        agent = animator.gameObject.GetComponent<NavMeshAgent>();
+        this.animator = animator;
         timer = 0;
         GameObject go = GameObject.FindGameObjectWithTag("WayPoints");
         foreach(Transform t in go.transform)
@@ -22,16 +27,18 @@ public class PatrolState : StateMachineBehaviour
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if(agent.remainingDistance <= agent.stoppingDistance)
-        {
-            agent.SetDestination(WayPoints[Random.Range(0, WayPoints.Count)].position);
-        }
+        
         timer += Time.deltaTime;
-        if (timer > 10)
+        if (timer > 3)
         {
-            animator.SetBool("isPatrolling", false);
+            animator.SetBool("isPatrol", false);
 
         }
+        if (PlayerDetection.playerfound == false)
+        {
+            animator.SetBool("isRunning", false);
+        }
+        
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state

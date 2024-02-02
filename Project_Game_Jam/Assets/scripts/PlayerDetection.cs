@@ -4,14 +4,17 @@ using UnityEngine;
 
 public class PlayerDetection : MonoBehaviour
 {
-    static public bool PlayerOnRange = false;
+   
+    public Animator animator;
+   static public bool playerfound = false;
     // Start is called before the first frame update
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.name == "Player")
         {
-            PlayerDetection.PlayerOnRange = true;
+            playerfound = true;
+            
         }
     }
     void Start()
@@ -25,5 +28,12 @@ public class PlayerDetection : MonoBehaviour
         
     }
 
-    
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.name == "Player")
+        {
+            playerfound=false;
+        }
+    }
+
 }

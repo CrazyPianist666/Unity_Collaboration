@@ -7,20 +7,22 @@ public class EnemyFollow : MonoBehaviour
 {
     public NavMeshAgent enemy;
     public Transform player;
+    
     // Start is called before the first frame update
     void Start()
     {
-        
+      
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (PlayerDetection.PlayerOnRange)
+        if (PlayerDetection.playerfound)
         {
             transform.LookAt(player.transform);
             enemy.SetDestination(player.position);
         }
-       
+        //Sword Anim
+
     }
 }

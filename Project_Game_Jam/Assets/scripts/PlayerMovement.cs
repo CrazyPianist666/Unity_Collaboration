@@ -11,7 +11,6 @@ using UnityEngine.EventSystems;
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Animations")]
-    
     public Animator animator;
     public int xAnimId;
     public int zAnimId;
@@ -22,11 +21,13 @@ public class PlayerMovement : MonoBehaviour
     public int JumpAnim;
     public int PunchAnim;
     public int HookPuchAnim;
-    public int DodgeAnim;
+    public int idleAnim;
+    public int PlayerSwordAnim;
     [Header("PlayerMovement")]
     [SerializeField]
     float Speed;
     public CharacterController characterController;
+    public Transform Enemy;
     [Header("Gravity And Jump")]
     public float gravity = -9.81f;
     public Vector3 velocity;
@@ -49,8 +50,8 @@ public class PlayerMovement : MonoBehaviour
         JumpAnim = Animator.StringToHash("Jump");
         PunchAnim = Animator.StringToHash("Punching");
         HookPuchAnim = Animator.StringToHash("Hook Punch");
-        DodgeAnim = Animator.StringToHash("Standing Dodge Backward");
-
+        idleAnim = Animator.StringToHash("idle");
+        PlayerSwordAnim = Animator.StringToHash("Sword Anim");
     }
 
     // Update is called once per frame
@@ -96,12 +97,18 @@ public class PlayerMovement : MonoBehaviour
 
 
 
-        if (Input.GetButtonDown("Fire1"))
+        //if (Input.GetButtonDown("Fire1"))
+        //{
+        // animator.CrossFade(HookPuchAnim, animTrans);
+        //animator.CrossFade(PunchAnim, animTrans);
+        //}
+       
+        if (Input.GetButtonDown("Fire1") )
         {
-            animator.CrossFade(HookPuchAnim, animTrans);
-            animator.CrossFade(PunchAnim, animTrans);
+            animator.CrossFade(PlayerSwordAnim, animTrans);
         }
 
-        
     }
+
+    
 }

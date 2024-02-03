@@ -106,12 +106,7 @@ public class PlayerMovement : MonoBehaviour
        
         if (Input.GetButtonDown("Fire1") )
         {
-            animator.CrossFade(PlayerSwordAnim, animTrans);
-            if (EnemyAnimRange.AnimRange)
-            {
-                GetComponent<EnemySystem>().TakeDamage(20);
-            }
-            
+            animator.CrossFade(PlayerSwordAnim, animTrans);            
         }
 
     }

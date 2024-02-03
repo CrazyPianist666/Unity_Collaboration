@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -7,6 +8,8 @@ public class PatrolState : StateMachineBehaviour
 {
     
     float timer;
+    float ChaseRange = 8;
+    Transform Player;
     List<Transform> WayPoints = new List<Transform>();
     NavMeshAgent agent;
     Animator animator;
@@ -27,16 +30,13 @@ public class PatrolState : StateMachineBehaviour
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        Player = GameObject.FindGameObjectWithTag("Player").transform;
         
         timer += Time.deltaTime;
         if (timer > 3)
         {
             animator.SetBool("isPatrol", false);
 
-        }
-        if (PlayerDetection.playerfound == false)
-        {
-            animator.SetBool("isRunning", false);
         }
         
     }

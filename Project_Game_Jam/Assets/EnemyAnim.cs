@@ -1,29 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyAnim : StateMachineBehaviour
 {
-    float time = 0.0f;
+    Transform Player;
+    NavMeshAgent agent;
+    Animator animator;
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        
-        
+        agent = animator.gameObject.GetComponent<NavMeshAgent>();
+        Player = GameObject.FindGameObjectWithTag("Player").transform;
+
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        time += Time.deltaTime;
 
-        
-        
-        if (EnemyAnimRange.AnimRange == false)
+        float distance = Vector3.Distance(Player.position, agent.transform.position);
+
+        if (distance > 3.5)
         {
-            animator.SetBool("isEnemyAt", false);
+            animator.SetBool("isAttacking",false);
         }
-      
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state

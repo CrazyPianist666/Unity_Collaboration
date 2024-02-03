@@ -1,23 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class IdealState : StateMachineBehaviour
 {
   
     float timer;
     Transform Player;
+    NavMeshAgent agent;
+    float ChaseRange = 10;
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
        
         timer = 0;
         Player = GameObject.FindGameObjectWithTag("Player").transform;
+        agent =animator.GetComponent<NavMeshAgent>();
+        
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        float distance = Vector3.Distance(Player.position, agent.transform.position);
         timer += Time.deltaTime;
         
         if (timer > 2) {
@@ -25,14 +31,13 @@ public class IdealState : StateMachineBehaviour
            animator.SetBool("isPatrol",true);
             
         }
-        if (PlayerDetection.playerfound == true)
+
+        if (distance < ChaseRange )
         {
             animator.SetBool("isRunning", true);
         }
-        if (PlayerDetection.playerfound == true)
-        {
-            animator.SetBool("isPatrol",false);
-        }
+
+       
 
 
     }

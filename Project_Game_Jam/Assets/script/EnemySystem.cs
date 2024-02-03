@@ -11,6 +11,7 @@ public class EnemySystem : MonoBehaviour
     public void TakeDamage(int damage)
     {
         EnemyHP -= damage;
+        print("Take damage");
         if (EnemyHP > 0)
         {
             animator.SetTrigger("Damage");

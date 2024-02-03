@@ -42,6 +42,7 @@ public class PlayerMovement : MonoBehaviour
 
 
 
+
     void Awake()
     {
         animator = GetComponent<Animator>();
@@ -106,6 +107,11 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetButtonDown("Fire1") )
         {
             animator.CrossFade(PlayerSwordAnim, animTrans);
+            if (EnemyAnimRange.AnimRange)
+            {
+                GetComponent<EnemySystem>().TakeDamage(20);
+            }
+            
         }
 
     }

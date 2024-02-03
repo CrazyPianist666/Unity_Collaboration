@@ -4,23 +4,26 @@ using UnityEngine;
 
 public class EnemyAnim : StateMachineBehaviour
 {
+    float time = 0.0f;
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        
         
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (EnemyAnimRange.AnimRange == true)
+        time += Time.deltaTime;
+
+        
+        
+        if (EnemyAnimRange.AnimRange == false)
         {
-            animator.SetBool("isEnemyAt", true);
+            animator.SetBool("isEnemyAt", false);
         }
-        if (EnemyAnimRange.AnimRange == true)
-        {
-            animator.SetBool("isRunning", false);
-        }
+      
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state

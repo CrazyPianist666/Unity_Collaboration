@@ -1794,9 +1794,9 @@ GameObject:
   - component: {fileID: 7606781562482241855}
   - component: {fileID: 8994455505353740481}
   - component: {fileID: 5506257324202479655}
-  - component: {fileID: 220090762813333337}
   - component: {fileID: 7682246755774553508}
   - component: {fileID: 3957665152918019439}
+  - component: {fileID: 9063311225089304162}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -1867,20 +1867,6 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &220090762813333337
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6849422706458708601}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f3bb706f0eb0a40409495ee1a11f78ee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemy: {fileID: 5506257324202479655}
-  player: {fileID: 0}
 --- !u!95 &7682246755774553508
 Animator:
   serializedVersion: 5
@@ -1914,7 +1900,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20dfc1d2d963c3344ab6b78e5a6f1921, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 7682246755774553508}
+--- !u!114 &9063311225089304162
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6849422706458708601}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3bb706f0eb0a40409495ee1a11f78ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemy: {fileID: 5506257324202479655}
+  player: {fileID: 0}
 --- !u!1 &6886987606059776346
 GameObject:
   m_ObjectHideFlags: 0
@@ -2803,7 +2802,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20dfc1d2d963c3344ab6b78e5a6f1921, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 7682246755774553508}
 --- !u!1 &8693247256090423587
 GameObject:
   m_ObjectHideFlags: 0

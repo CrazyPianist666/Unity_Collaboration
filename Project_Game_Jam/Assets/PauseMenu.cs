@@ -4,15 +4,23 @@ using UnityEngine;
 
 public class Pausemenu : MonoBehaviour
 {
-    public static bool GameIsPaused = false;
+    static public bool GameIsPaused = false;
 
     public GameObject pauseMenuUI;
-    
 
+    public GameObject HealthBar;
+    public GameObject CurrencyBar;
+
+
+    void Start()
+    {
+        HealthBar.SetActive(true);
+        CurrencyBar.SetActive(true);
+    }
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape))
+        if(Input.GetKeyDown(KeyCode.Y))
         {
             if(GameIsPaused)
             {
@@ -23,16 +31,29 @@ public class Pausemenu : MonoBehaviour
                 Pause();
             }
         }
+
+        if(GameIsPaused)
+        {
+            HealthBar.SetActive(false);
+            CurrencyBar.SetActive(false);
+        }
+        else if(!GameIsPaused)
+        {
+            HealthBar.SetActive(true);
+            CurrencyBar.SetActive(true);
+        }
         
     }
     public void Resume()
     {
         pauseMenuUI.SetActive(false);
+        
         Time.timeScale = 1f;
         GameIsPaused = false;
     }
     void Pause()
     {
+        
         pauseMenuUI.SetActive(true);
         Time.timeScale = 1f;
         GameIsPaused = true;

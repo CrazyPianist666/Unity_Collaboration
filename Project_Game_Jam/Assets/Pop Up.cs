@@ -1,14 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PopUp : MonoBehaviour
 {
     public GameObject Panel;
+    
     public bool isTrigger;
-
+    
+   
     void Start()
     {
+        
         Panel.SetActive(false);
     }
 
@@ -27,10 +31,15 @@ public class PopUp : MonoBehaviour
         {
             isTrigger = false;
             Panel.SetActive(false);
+             
         }
     }
+
+    
     void Update()
     {
-        
+       
     }
+
+    
 }

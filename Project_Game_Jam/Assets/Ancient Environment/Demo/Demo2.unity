@@ -26899,6 +26899,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bc54a7f71b3ec1a478941ab449bc81db, type: 3}
+--- !u!1 &1018193567 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1563235010704312868, guid: 3f0745d97214f624d97537804ede8450, type: 3}
+  m_PrefabInstance: {fileID: 3954817617277496862}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1018780534
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -40031,6 +40036,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dfff7a40363e263499ed1b7426967970, type: 3}
+--- !u!1 &1590502399 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7136750215314202605, guid: a734047dd49e3794a837c4a4cdc3fc05, type: 3}
+  m_PrefabInstance: {fileID: 9146434754095568952}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1590585559 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400004, guid: 7e82ce9994aca1d46b848e54ab21ec69, type: 3}
@@ -53814,6 +53824,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4291358211913954393, guid: a4bc9ea770c5c104b853d0ef2e580abf, type: 3}
+      propertyPath: HealthBar
+      value: 
+      objectReference: {fileID: 1018193567}
+    - target: {fileID: 4291358211913954393, guid: a4bc9ea770c5c104b853d0ef2e580abf, type: 3}
+      propertyPath: CurrencyBar
+      value: 
+      objectReference: {fileID: 1590502399}
     - target: {fileID: 4428170125688350074, guid: a4bc9ea770c5c104b853d0ef2e580abf, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0

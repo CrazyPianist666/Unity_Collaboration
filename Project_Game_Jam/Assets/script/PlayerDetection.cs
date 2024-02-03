@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class PlayerDetection : MonoBehaviour
 {
-   
-    public Animator animator;
-   static public bool playerfound = false;
+  
+    static public bool playerfound = false;
     // Start is called before the first frame update
 
     private void OnTriggerEnter(Collider other)
